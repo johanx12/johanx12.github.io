@@ -51,7 +51,7 @@ export default function App() {
   useEffect(() => {
     const b = document.getElementById("boot");
     if (!b) return;
-    const MIN_BOOT = 1400;
+    const MIN_BOOT = 700;
     const wait = Math.max(0, MIN_BOOT - performance.now());
     const t1 = setTimeout(() => b.classList.add("gone"), wait);
     const t2 = setTimeout(() => b.remove(), wait + 650);

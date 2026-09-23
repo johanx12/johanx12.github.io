@@ -8,6 +8,8 @@
 <meta name="description" content="Portafolio de Johan Perico, desarrollador full stack colombiano y fundador de J&S DEVWORK. Páginas web y software a la medida con Python, JavaScript y Java." />
 <meta name="author" content="Johan Perico" />
 <meta name="theme-color" content="#00ff9c" />
+<!-- El HTML no debe cachearse: los nombres de los bundles cambian en cada build. -->
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
 
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Johan Perico | Desarrollador Full Stack" />
@@ -73,47 +75,28 @@
     text-transform: uppercase;
   }
 
-  .boot-track {
-    position: relative;
-    height: 3px;
-    margin: 22px 0 16px;
-    background: rgba(0, 255, 156, .13);
-    overflow: hidden;
+  /* Tres puntos: toda la espera se resuelve aquí, sin logs ni barra. */
+  .boot-dots {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 26px;
   }
-  .boot-track i {
-    position: absolute;
-    top: 0; bottom: 0; left: 0;
-    display: block;
-    width: 0;
-    background: linear-gradient(90deg, #00b36e, #00ff9c);
-    box-shadow: 0 0 10px rgba(0, 255, 156, .9);
-    animation: bootFill 1.9s cubic-bezier(.45, .05, .2, 1) forwards;
-  }
-
-  .boot-log { font-size: .78rem; line-height: 1.85; min-height: 5.6em; }
-  .boot-log p {
-    margin: 0;
-    opacity: 0;
-    color: #7ea798;
-    animation: bootLine .35s ease forwards;
-    animation-delay: var(--d);
-  }
-  .boot-log b { color: #00ff9c; font-weight: normal; }
-  .boot-log .cy { color: #00e5ff; }
-
-  .boot-caret {
-    display: inline-block;
-    width: 9px;
-    height: 1em;
-    vertical-align: -2px;
+  .boot-dots i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
     background: #00ff9c;
-    box-shadow: 0 0 8px rgba(0, 255, 156, .9);
-    animation: bootBlink 1s steps(1) infinite;
+    box-shadow: 0 0 12px rgba(0, 255, 156, .9);
+    animation: bootDot 1.05s ease-in-out infinite;
   }
+  .boot-dots i:nth-child(2) { animation-delay: .18s; }
+  .boot-dots i:nth-child(3) { animation-delay: .36s; }
 
-  @keyframes bootFill { from { width: 0; } to { width: 100%; } }
-  @keyframes bootLine { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
-  @keyframes bootBlink { 50% { opacity: 0; } }
+  @keyframes bootDot {
+    0%, 100% { opacity: .2; transform: translateY(0) scale(.85); }
+    40%      { opacity: 1;  transform: translateY(-6px) scale(1); }
+  }
   @keyframes bootGlitch {
     0%, 94%, 100% { transform: none; }
     95% { transform: translateX(-2px) skewX(-3deg); }
@@ -121,9 +104,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .boot-logo, .boot-caret { animation: none; }
-    .boot-track i { animation-duration: .01ms; width: 100%; }
-    .boot-log p { animation: none; opacity: 1; }
+    .boot-logo { animation: none; }
+    .boot-dots i { animation: none; opacity: .8; }
   }
 </style>
 </head>
@@ -139,16 +121,8 @@
 <div id="boot">
   <div class="boot-box">
     <div class="boot-logo">JOHAN_PERICO<span>/&gt;</span></div>
-    <div class="boot-sub">inicializando portafolio</div>
-
-    <div class="boot-track"><i></i></div>
-
-    <div class="boot-log">
-      <p style="--d:.05s"><b>[ OK ]</b> núcleo cargado</p>
-      <p style="--d:.45s"><b>[ OK ]</b> túnel neón renderizando</p>
-      <p style="--d:.85s"><b>[ OK ]</b> stack y proyectos montados</p>
-      <p style="--d:1.3s" class="cy">&gt; abriendo interfaz<span class="boot-caret"></span></p>
-    </div>
+    <div class="boot-sub">cargando</div>
+    <div class="boot-dots"><i></i><i></i><i></i></div>
   </div>
 </div>
 
@@ -160,6 +134,40 @@
 </noscript>
 
 <div id="root"></div>
+
+<script>
+/* Red de seguridad del arranque. No depende del bundle de React, así que
+   sigue funcionando aunque el JS falle o el navegador tenga cacheado un
+   index.html viejo que apunta a un bundle que ya no existe. */
+(function () {
+  function hideBoot() {
+    var b = document.getElementById("boot");
+    if (!b) return;
+    b.classList.add("gone");
+    setTimeout(function () { if (b.parentNode) b.remove(); }, 600);
+  }
+
+  // 1) Pase lo que pase, a los 1.4s la pantalla de carga se va.
+  setTimeout(hideBoot, 1400);
+
+  // 2) Si React no montó nada, el index.html es viejo: recarga una sola vez
+  //    saltándose la caché. El guardia en sessionStorage evita el bucle.
+  setTimeout(function () {
+    var root = document.getElementById("root");
+    var vacio = !root || root.children.length === 0;
+    try {
+      if (vacio && !sessionStorage.getItem("jp_recarga")) {
+        sessionStorage.setItem("jp_recarga", "1");
+        location.replace(location.pathname + "?r=" + Date.now());
+      } else if (!vacio) {
+        sessionStorage.removeItem("jp_recarga");
+      }
+    } catch (e) {
+      /* sessionStorage bloqueado: no recargamos, para no arriesgar un bucle */
+    }
+  }, 2600);
+})();
+</script>
 
 <script type="module" src="/src/main.jsx"></script>
 </body>
