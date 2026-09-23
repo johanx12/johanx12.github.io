@@ -119,8 +119,8 @@ function Stats({ lang }) {
 export default function Hero({ t, lang }) {
   const words =
     lang === "es"
-      ? ["<Full Stack Developer />", "<Python | JavaScript | Java />", "<Software a la medida />", "<J&S DEVWORK />"]
-      : ["<Full Stack Developer />", "<Python | JavaScript | Java />", "<Custom software />", "<J&S DEVWORK />"];
+      ? ["<Full Stack Developer />", "<Python | JavaScript | Java />", "<Linux | Docker | Bash />", "<Software a la medida />", "<J&S DEVWORK />"]
+      : ["<Full Stack Developer />", "<Python | JavaScript | Java />", "<Linux | Docker | Bash />", "<Custom software />", "<J&S DEVWORK />"];
 
   return (
     <header className="hero" id="home">

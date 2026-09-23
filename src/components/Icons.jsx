@@ -46,5 +46,13 @@ const IconApi = () => (
   </svg>
 );
 
+const IconServer = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+    <rect x="3" y="3.5" width="18" height="7" rx="1.2" />
+    <rect x="3" y="13.5" width="18" height="7" rx="1.2" />
+    <path d="M6.5 7h.01M6.5 17h.01M10 7h4M10 17h4" />
+  </svg>
+);
+
 /** Mapa usado por la sección de servicios (data.js referencia estas claves). */
-export const SERVICE_ICONS = { web: IconWeb, app: IconApp, db: IconDb, api: IconApi };
+export const SERVICE_ICONS = { web: IconWeb, app: IconApp, db: IconDb, api: IconApi, server: IconServer };

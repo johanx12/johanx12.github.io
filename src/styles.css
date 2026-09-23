@@ -344,7 +344,7 @@ section { padding: 110px 0; position: relative; }
 /* ---------- Stats ---------- */
 .stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 1px;
   background: var(--line);
   border: 1px solid var(--line);
@@ -795,6 +795,8 @@ section { padding: 110px 0; position: relative; }
   .avatar-box { max-width: 300px; }
   .proj.big { grid-column: span 1; }
   .stats { grid-template-columns: 1fr 1fr; }
+  /* si el número de métricas es impar, la última ocupa la fila entera */
+  .stats .stat:last-child:nth-child(odd) { grid-column: 1 / -1; }
 }
 @media (max-width: 720px) {
   body { font-size: 16px; }

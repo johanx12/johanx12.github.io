@@ -18,6 +18,7 @@ export default function About({ t }) {
             <p className="about-lead">{t.aboutLead}</p>
             <p>{t.aboutP1}</p>
             <p>{t.aboutP2}</p>
+            <p>{t.aboutP3}</p>
 
             <div className="pills">
               <div className="pill panel">

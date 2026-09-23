@@ -20,9 +20,10 @@ export const SITE = {
    El que tiene live:"repos" se sobreescribe con el dato real de la API de GitHub. */
 export const STATS = [
   { value: 3,  suffix: "+", es: "Años programando", en: "Years coding" },
+  { value: 4,  suffix: "+", es: "Años en Linux",    en: "Years on Linux" },
   { value: 6,  suffix: "",  es: "Repos públicos",   en: "Public repos", live: "repos" },
   { value: 8,  suffix: "+", es: "Proyectos",        en: "Projects" },
-  { value: 14, suffix: "+", es: "Tecnologías",      en: "Technologies" }
+  { value: 21, suffix: "+", es: "Tecnologías",      en: "Technologies" }
 ];
 
 export const STACK = [
@@ -39,7 +40,16 @@ export const STACK = [
   { name: "Git",            cat: "tools",    level: 85 },
   { name: "GitHub",         cat: "tools",    level: 85 },
   { name: "Tkinter",        cat: "tools",    level: 75 },
-  { name: "Canvas / WebGL", cat: "frontend", level: 70 }
+  { name: "Canvas / WebGL", cat: "frontend", level: 70 },
+
+  /* Linux y DevOps — 4 años de uso diario */
+  { name: "Linux",          cat: "sys",      level: 88 },
+  { name: "Debian",         cat: "sys",      level: 85 },
+  { name: "Kali Linux",     cat: "sys",      level: 82 },
+  { name: "Arch Linux",     cat: "sys",      level: 80 },
+  { name: "Manjaro",        cat: "sys",      level: 80 },
+  { name: "Docker",         cat: "sys",      level: 78 },
+  { name: "Bash",           cat: "sys",      level: 80 }
 ];
 
 export const CATS = {
@@ -47,6 +57,7 @@ export const CATS = {
   frontend: { es: "Frontend",     en: "Frontend" },
   backend:  { es: "Backend",      en: "Backend" },
   data:     { es: "Datos",        en: "Data" },
+  sys:      { es: "Linux & DevOps", en: "Linux & DevOps" },
   tools:    { es: "Herramientas", en: "Tools" }
 };
 
@@ -170,6 +181,12 @@ export const SERVICES = [
     es: { title: "APIs e integraciones", desc: "APIs REST, automatizaciones y conexión entre los sistemas que ya usas." },
     en: { title: "APIs & integrations", desc: "REST APIs, automations and glue between the systems you already use." },
     tech: ["Python", "Flask", "REST"]
+  },
+  {
+    icon: "server",
+    es: { title: "Servidores Linux y Docker", desc: "Montaje y mantenimiento de servidores Linux, contenedores Docker y despliegues que no se caen el lunes." },
+    en: { title: "Linux servers & Docker", desc: "Setup and upkeep of Linux servers, Docker containers and deployments that do not fall over on Monday." },
+    tech: ["Linux", "Debian", "Docker", "Bash"]
   }
 ];
 
@@ -186,6 +203,7 @@ export const I18N = {
     aboutKicker: "CONÓCEME", aboutTitle: "Sobre mí",
     aboutLead: "Código que se sostiene solo y clientes que vuelven.",
     aboutP1: "Soy Johan Perico, desarrollador full stack colombiano. Trabajo con Python para lógica y datos, JavaScript para interfaces, y Java cuando el proyecto lo pide. Lo que construyo termina en manos de alguien que lo usa a diario.",
+    aboutP3: "Llevo 4 años trabajando sobre Linux como sistema principal: Debian y Kali para seguridad y servidores, Arch y Manjaro en el día a día. De ahí viene mi soltura con la terminal, Bash y Docker para levantar entornos que se comportan igual en mi máquina y en producción.",
     aboutP2: "Fundé J&S DEVWORK para vender páginas web y software a la medida en Colombia. Ahí aprendí lo que ningún curso enseña: un sistema vale por el problema que resuelve, no por las tecnologías que lleva encima.",
     pill1t: "Filosofía", pill1d: "Alcance cerrado y código legible. Nada de funciones que nadie pidió.",
     pill2t: "Objetivo", pill2d: "Construir software que un negocio pueda operar sin mí al lado.",
@@ -217,6 +235,7 @@ export const I18N = {
     aboutKicker: "ABOUT ME", aboutTitle: "About me",
     aboutLead: "Code that holds up on its own and clients who come back.",
     aboutP1: "I am Johan Perico, a Colombian full stack developer. I use Python for logic and data, JavaScript for interfaces, and Java when the project calls for it. What I build ends up in the hands of someone who uses it daily.",
+    aboutP3: "I have been running Linux as my main system for 4 years: Debian and Kali for security and servers, Arch and Manjaro day to day. That is where my comfort with the terminal, Bash and Docker comes from — environments that behave the same on my machine and in production.",
     aboutP2: "I founded J&S DEVWORK to sell custom websites and software in Colombia. That taught me what no course does: a system is worth the problem it solves, not the stack it carries.",
     pill1t: "Philosophy", pill1d: "Closed scope, readable code. No features nobody asked for.",
     pill2t: "Goal", pill2d: "Build software a business can run without me next to it.",
