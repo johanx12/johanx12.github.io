@@ -21,6 +21,111 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+
+<!-- Estilos críticos de la pantalla de arranque: van inline para que se vea
+     correcta desde el primer frame, antes de que llegue el CSS del bundle. -->
+<style>
+  #boot {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: #000503;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Share Tech Mono", monospace;
+    color: #00ff9c;
+    transition: opacity .55s ease, visibility .55s;
+  }
+  #boot.gone { opacity: 0; visibility: hidden; pointer-events: none; }
+
+  #boot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 255, 156, .06) 0 1px, transparent 1px 3px
+    );
+  }
+
+  .boot-box { width: min(430px, 84vw); position: relative; }
+
+  .boot-logo {
+    font-family: "Orbitron", "Share Tech Mono", monospace;
+    font-weight: 900;
+    font-size: clamp(1.2rem, 5.5vw, 1.85rem);
+    letter-spacing: 3px;
+    text-align: center;
+    color: #eafff6;
+    text-shadow: 0 0 18px rgba(0, 255, 156, .75), 0 0 48px rgba(0, 255, 156, .35);
+    animation: bootGlitch 2.6s infinite;
+  }
+  .boot-logo span { color: #00ff9c; }
+
+  .boot-sub {
+    text-align: center;
+    font-size: .72rem;
+    letter-spacing: 4px;
+    color: #4d6b61;
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+
+  .boot-track {
+    position: relative;
+    height: 3px;
+    margin: 22px 0 16px;
+    background: rgba(0, 255, 156, .13);
+    overflow: hidden;
+  }
+  .boot-track i {
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    display: block;
+    width: 0;
+    background: linear-gradient(90deg, #00b36e, #00ff9c);
+    box-shadow: 0 0 10px rgba(0, 255, 156, .9);
+    animation: bootFill 1.9s cubic-bezier(.45, .05, .2, 1) forwards;
+  }
+
+  .boot-log { font-size: .78rem; line-height: 1.85; min-height: 5.6em; }
+  .boot-log p {
+    margin: 0;
+    opacity: 0;
+    color: #7ea798;
+    animation: bootLine .35s ease forwards;
+    animation-delay: var(--d);
+  }
+  .boot-log b { color: #00ff9c; font-weight: normal; }
+  .boot-log .cy { color: #00e5ff; }
+
+  .boot-caret {
+    display: inline-block;
+    width: 9px;
+    height: 1em;
+    vertical-align: -2px;
+    background: #00ff9c;
+    box-shadow: 0 0 8px rgba(0, 255, 156, .9);
+    animation: bootBlink 1s steps(1) infinite;
+  }
+
+  @keyframes bootFill { from { width: 0; } to { width: 100%; } }
+  @keyframes bootLine { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
+  @keyframes bootBlink { 50% { opacity: 0; } }
+  @keyframes bootGlitch {
+    0%, 94%, 100% { transform: none; }
+    95% { transform: translateX(-2px) skewX(-3deg); }
+    97% { transform: translateX(2px) skewX(3deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .boot-logo, .boot-caret { animation: none; }
+    .boot-track i { animation-duration: .01ms; width: 100%; }
+    .boot-log p { animation: none; opacity: 1; }
+  }
+</style>
 </head>
 <body>
 
@@ -31,7 +136,21 @@
 <div class="bg-scanlines" aria-hidden="true"></div>
 
 <!-- Pantalla de arranque: React la borra al montar -->
-<div id="boot">INICIANDO SISTEMA<span class="boot-caret">_</span></div>
+<div id="boot">
+  <div class="boot-box">
+    <div class="boot-logo">JOHAN_PERICO<span>/&gt;</span></div>
+    <div class="boot-sub">inicializando portafolio</div>
+
+    <div class="boot-track"><i></i></div>
+
+    <div class="boot-log">
+      <p style="--d:.05s"><b>[ OK ]</b> núcleo cargado</p>
+      <p style="--d:.45s"><b>[ OK ]</b> túnel neón renderizando</p>
+      <p style="--d:.85s"><b>[ OK ]</b> stack y proyectos montados</p>
+      <p style="--d:1.3s" class="cy">&gt; abriendo interfaz<span class="boot-caret"></span></p>
+    </div>
+  </div>
+</div>
 
 <noscript>
   <div class="noscript">

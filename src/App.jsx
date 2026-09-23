@@ -46,13 +46,19 @@ export default function App() {
         : "Johan Perico | Full Stack Developer — J&S DEVWORK";
   }, [lang]);
 
-  // Quita la pantalla de arranque cuando React ya pintó.
+  // Quita la pantalla de arranque cuando React ya pintó, pero nunca antes de
+  // MIN_BOOT: si el sitio carga muy rápido, la secuencia se vería como un parpadeo.
   useEffect(() => {
     const b = document.getElementById("boot");
     if (!b) return;
-    b.classList.add("gone");
-    const id = setTimeout(() => b.remove(), 700);
-    return () => clearTimeout(id);
+    const MIN_BOOT = 1400;
+    const wait = Math.max(0, MIN_BOOT - performance.now());
+    const t1 = setTimeout(() => b.classList.add("gone"), wait);
+    const t2 = setTimeout(() => b.remove(), wait + 650);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
   }, []);
 
   return (

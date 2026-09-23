@@ -773,21 +773,9 @@ section { padding: 110px 0; position: relative; }
 .fab:hover { transform: scale(1.08); box-shadow: var(--glow-lg); }
 .fab svg { width: 26px; height: 26px; }
 
-/* ---------- Loader ---------- */
-#boot {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  background: #000503;
-  display: grid;
-  place-items: center;
-  font-family: var(--font-mono);
-  color: var(--neon);
-  letter-spacing: 3px;
-  transition: opacity 0.6s;
-}
-#boot.gone { opacity: 0; pointer-events: none; }
-.boot-caret { animation: blink 1s steps(1) infinite; }
+/* ---------- Loader ----------
+   Los estilos de #boot viven inline en index.html: tienen que estar
+   disponibles antes de que este archivo llegue. No duplicarlos aquí. */
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
